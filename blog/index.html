@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — faisholhakim | elend</title>
+  <meta name="description" content="Writing on DFIR, Threat Intelligence, and Security Automation by Faishol Hakim.">
+  <link rel="icon" type="image/png" href="../wallpaper.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0f13;
+      --bg-card: #0f1419;
+      --bg-hover: #131a21;
+      --text: #b8c0c8;
+      --text-bright: #e2e6ea;
+      --text-dim: #4d5a65;
+      --cyan: #36d3c4;
+      --cyan-dim: rgba(54, 211, 196, 0.12);
+      --amber: #e6a644;
+      --amber-dim: rgba(230, 166, 68, 0.1);
+      --red: #e85d6f;
+      --green: #6fcf7c;
+      --border: #1a2029;
+      --border-hover: #253040;
+      --mono: 'JetBrains Mono', monospace;
+      --sans: 'Outfit', sans-serif;
+      --max-w: 740px;
+      --radius: 5px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: 15px; scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::selection {
+      background: var(--cyan);
+      color: var(--bg);
+    }
+
+    /* ═══ NAV ═══ */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(11, 15, 19, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0.9rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-family: var(--mono);
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--cyan);
+      text-decoration: none;
+      letter-spacing: 0.3px;
+    }
+
+    .nav-logo:hover { color: var(--amber); }
+
+    .nav-links { display: flex; gap: 0.15rem; }
+
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      text-decoration: none;
+      padding: 0.35rem 0.6rem;
+      border-radius: var(--radius);
+      transition: all 0.2s;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--text);
+      background: var(--bg-card);
+    }
+
+    .nav-links a.active { color: var(--cyan); }
+
+    /* ═══ MAIN ═══ */
+    main {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ═══ HEADER ═══ */
+    .blog-header {
+      padding: 3rem 0 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .prompt-line {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .prompt-line .sym { color: var(--green); }
+    .prompt-line .cmd { color: var(--cyan); }
+
+    .blog-header h1 {
+      font-family: var(--sans);
+      font-size: 1.9rem;
+      font-weight: 600;
+      color: var(--text-bright);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.4px;
+    }
+
+    .blog-header p {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+    }
+
+    /* ═══ FILTER TAGS ═══ */
+    .filter-row {
+      padding: 1.5rem 0 0.5rem;
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-tag {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      padding: 0.25rem 0.6rem;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      color: var(--text-dim);
+      cursor: pointer;
+      transition: all 0.2s;
+      background: none;
+    }
+
+    .filter-tag:hover, .filter-tag.active {
+      color: var(--cyan);
+      border-color: var(--cyan);
+      background: var(--cyan-dim);
+    }
+
+    /* ═══ POST LIST ═══ */
+    .post-list {
+      padding: 1rem 0 3rem;
+    }
+
+    .post-item {
+      display: block;
+      text-decoration: none;
+      padding: 1.2rem;
+      margin-bottom: 0.5rem;
+      border-radius: var(--radius);
+      border: 1px solid transparent;
+      transition: all 0.2s;
+      color: inherit;
+    }
+
+    .post-item:hover {
+      background: var(--bg-card);
+      border-color: var(--border);
+    }
+
+    .post-meta {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      margin-bottom: 0.3rem;
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .post-tag {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      padding: 0.1rem 0.4rem;
+      border-radius: 3px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+    }
+
+    .post-tag.dfir { color: var(--amber); border-color: var(--amber-dim); background: var(--amber-dim); }
+    .post-tag.cti  { color: var(--cyan);  border-color: var(--cyan-dim);  background: var(--cyan-dim); }
+    .post-tag.detection { color: var(--green); border-color: rgba(111,207,124,0.15); background: rgba(111,207,124,0.08); }
+
+    .post-item h2 {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-bright);
+      margin-bottom: 0.25rem;
+    }
+
+    .post-item:hover h2 { color: var(--cyan); }
+
+    .post-item p {
+      font-size: 0.84rem;
+      color: var(--text-dim);
+    }
+
+    /* ═══ EMPTY STATE ═══ */
+    .empty {
+      padding: 3rem 0;
+      text-align: center;
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      color: var(--text-dim);
+    }
+
+    /* ═══ FOOTER ═══ */
+    footer {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-links {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-links a {
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--cyan); }
+
+    .footer-sep { color: var(--border); margin: 0 0.5rem; }
+
+    .footer-copy {
+      font-size: 0.72rem;
+      color: var(--text-dim);
+    }
+
+    /* ═══ RESPONSIVE ═══ */
+    @media (max-width: 600px) {
+      html { font-size: 14px; }
+      .blog-header h1 { font-size: 1.5rem; }
+      .nav-inner { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    }
+
+    /* ═══ FADE IN ═══ */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeUp 0.5s ease forwards;
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">[ faisholhakim | elend ]</a>
+    <div class="nav-links">
+      <a href="/#experience">/ experience</a>
+      <a href="/#cases">/ cases</a>
+      <a href="/#projects">/ projects</a>
+      <a href="/#tools">/ arsenal</a>
+      <a href="/blog" class="active">/ posts</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+  <div class="blog-header fade-in">
+    <div class="prompt-line">
+      <span class="sym">$</span>
+      <span class="cmd">ls ./blog</span>
+    </div>
+    <h1>Writing</h1>
+    <p>Notes on DFIR, threat intelligence, detection engineering, and security automation.</p>
+  </div>
+
+  <div class="filter-row fade-in">
+    <button class="filter-tag active" data-filter="all">all</button>
+    <button class="filter-tag" data-filter="dfir">dfir</button>
+    <button class="filter-tag" data-filter="cti">cti</button>
+    <button class="filter-tag" data-filter="detection">detection</button>
+  </div>
+
+  <div class="post-list fade-in" id="post-list">
+
+    <a class="post-item" href="/blog/automating-dfir-triage" data-tags="dfir">
+      <div class="post-meta">
+        <span>2026-04-10</span>
+        <span class="post-tag dfir">dfir</span>
+      </div>
+      <h2>Automating DFIR Triage with KAPE and Timeline Analysis</h2>
+      <p>Building a pipeline from triage collection to interactive timeline.</p>
+    </a>
+
+    <a class="post-item" href="/blog/volatility-auto-parser" data-tags="dfir">
+      <div class="post-meta">
+        <span>2026-04-05</span>
+        <span class="post-tag dfir">dfir</span>
+      </div>
+      <h2>Volatility Module Auto-Parser for Linux Memory Images</h2>
+      <p>Automating the painful parts of Linux memory forensics.</p>
+    </a>
+
+    <a class="post-item" href="/blog/cti-enrichment-pipeline" data-tags="cti detection">
+      <div class="post-meta">
+        <span>2026-03-28</span>
+        <span class="post-tag cti">cti</span>
+        <span class="post-tag detection">detection</span>
+      </div>
+      <h2>Building a CTI Enrichment Pipeline: From Reports to Detection</h2>
+      <p>End-to-end IoC extraction, enrichment, and detection deployment.</p>
+    </a>
+
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-links">
+    <a href="mailto:faisholhakim15@gmail.com">email</a>
+    <span class="footer-sep">•</span>
+    <a href="https://www.linkedin.com/in/faisholhaka" target="_blank">linkedin</a>
+    <span class="footer-sep">•</span>
+    <a href="https://github.com/" target="_blank">github</a>
+    <span class="footer-sep">•</span>
+    <a href="https://medium.com/" target="_blank">medium</a>
+  </div>
+  <p class="footer-copy">faisholhakim © 2026</p>
+</footer>
+
+<script>
+  const filters = document.querySelectorAll('.filter-tag');
+  const posts = document.querySelectorAll('.post-item');
+
+  filters.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filters.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      posts.forEach(post => {
+        const tags = post.dataset.tags || '';
+        post.style.display = (filter === 'all' || tags.includes(filter)) ? 'block' : 'none';
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
