@@ -4,30 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Writing — Faishol Hakim (faisholhakim)</title>
-  <meta name="description" content="Writing by Faishol Hakim on DFIR, threat intelligence, detection engineering and security automation.">
-  <meta name="keywords" content="Faishol Hakim, faisholhakim, DFIR, Threat Intelligence, Detection Engineering, Security blog">
+  <meta name="description" content="Writing by Faishol Hakim on digital forensics, incident response, threat intelligence and security automation.">
+  <meta name="keywords" content="Faishol Hakim, faisholhakim, DFIR, Threat Intelligence, Detection Engineering">
   <meta name="author" content="Muhamad Faishol Hakim">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#0b0f13">
   <link rel="canonical" href="https://faisholhakim.com/blog/">
 
-  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Writing — Faishol Hakim">
-  <meta property="og:description" content="Notes on DFIR, threat intelligence, detection engineering and security automation.">
+  <meta property="og:description" content="Notes on digital forensics, incident response, threat intelligence and security automation.">
   <meta property="og:url" content="https://faisholhakim.com/blog/">
   <meta property="og:image" content="https://faisholhakim.com/og.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:site_name" content="faisholhakim.com">
 
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Writing — Faishol Hakim">
-  <meta name="twitter:description" content="Notes on DFIR, threat intelligence, detection engineering and security automation.">
+  <meta name="twitter:description" content="Notes on digital forensics, incident response and security automation.">
   <meta name="twitter:image" content="https://faisholhakim.com/og.jpg">
 
-  <!-- JSON-LD -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -47,12 +44,11 @@
   <link rel="apple-touch-icon" href="../favicon-180.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #0b0f13;
       --surface: #11171e;
-      --surface-2: #161e26;
       --border: #1c242e;
       --border-strong: #2a3440;
 
@@ -61,34 +57,28 @@
       --text-muted: #8593a1;
 
       --accent: #36d3c4;
-      --accent-soft: rgba(54, 211, 196, 0.1);
       --amber: #e6a644;
-      --amber-soft: rgba(230, 166, 68, 0.1);
-      --red: #e85d6f;
-      --green: #6fcf7c;
-      --green-soft: rgba(111, 207, 124, 0.1);
 
       --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
       --sans: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
 
-      --s1: 0.25rem; --s2: 0.5rem;  --s3: 0.75rem; --s4: 1rem;
-      --s5: 1.5rem;  --s6: 2rem;    --s7: 3rem;    --s8: 4.5rem;
+      --s1: 0.25rem; --s2: 0.5rem; --s3: 0.75rem; --s4: 1rem;
+      --s5: 1.5rem;  --s6: 2rem;   --s7: 3.25rem;
 
-      --max-w: 880px;
-      --radius: 6px;
-      --ease: 220ms cubic-bezier(0.4, 0, 0.2, 1);
+      --measure: 68ch;
+      --max-w: 780px;
+      --ease: 120ms linear;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html { font-size: 16px; scroll-behavior: smooth; }
+    html { font-size: 16px; }
 
     body {
       background: var(--bg);
       color: var(--text);
       font-family: var(--sans);
-      font-size: 1rem;
-      line-height: 1.65;
+      line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       min-height: 100vh;
       display: flex;
@@ -99,261 +89,130 @@
 
     a { color: inherit; }
 
-    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
     .skip-link {
-      position: absolute;
-      left: var(--s4);
-      top: -4rem;
-      z-index: 200;
-      background: var(--accent);
-      color: var(--bg);
-      font-family: var(--mono);
-      font-size: 0.85rem;
-      font-weight: 600;
-      padding: var(--s3) var(--s4);
-      border-radius: var(--radius);
-      text-decoration: none;
+      position: absolute; left: var(--s4); top: -4rem; z-index: 200;
+      background: var(--accent); color: var(--bg);
+      font-family: var(--mono); font-size: 0.85rem; font-weight: 500;
+      padding: var(--s3) var(--s4); text-decoration: none;
       transition: top var(--ease);
     }
-    .skip-link:focus { top: var(--s3); }
+    .skip-link:focus { top: var(--s2); }
 
     .wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--s5); width: 100%; }
 
-    /* ───────── NAV ───────── */
     .site-nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(11, 15, 19, 0.88);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(11, 15, 19, 0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--border);
     }
 
     .nav-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: var(--s4);
-      min-height: 3.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: var(--s4); min-height: 3.25rem;
     }
 
-    .nav-logo {
-      display: inline-flex;
-      align-items: center;
-      min-height: 44px;
-      font-family: var(--mono);
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--accent);
-      text-decoration: none;
-      white-space: nowrap;
-      transition: color var(--ease);
+    .nav-name {
+      font-family: var(--mono); font-size: 0.85rem; font-weight: 500;
+      color: var(--text-strong); text-decoration: none; white-space: nowrap;
     }
-    .nav-logo:hover { color: var(--amber); }
-    .nav-logo .bracket { color: var(--text-muted); }
+    .nav-name:hover { color: var(--accent); }
 
     .nav-links {
-      display: flex;
-      align-items: center;
-      gap: var(--s1);
-      overflow-x: auto;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
+      display: flex; align-items: center;
+      overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none;
     }
     .nav-links::-webkit-scrollbar { display: none; }
 
     .nav-links a {
-      display: inline-flex;
-      align-items: center;
-      min-height: 44px;
+      display: inline-flex; align-items: center; min-height: 44px;
       padding: 0 var(--s3);
-      font-family: var(--mono);
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      text-decoration: none;
-      white-space: nowrap;
-      border-radius: var(--radius);
-      transition: color var(--ease), background var(--ease);
+      font-family: var(--mono); font-size: 0.8rem;
+      color: var(--text-muted); text-decoration: none; white-space: nowrap;
+      transition: color var(--ease);
     }
-    .nav-links a:hover { color: var(--text-strong); background: var(--surface); }
-    .nav-links a[aria-current="page"] { color: var(--accent); background: var(--accent-soft); }
+    .nav-links a:hover { color: var(--text-strong); }
+    .nav-links a[aria-current] { color: var(--accent); }
 
-    /* ───────── HEADER ───────── */
-    main { flex: 1 0 auto; }
+    main { flex: 1 0 auto; padding: var(--s7) 0; }
 
-    .page-head { padding: var(--s7) 0 var(--s5); }
-
-    .prompt-line {
-      font-family: var(--mono);
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      margin-bottom: var(--s3);
+    .prompt {
+      font-family: var(--mono); font-size: 0.8rem;
+      color: var(--text-muted); margin-bottom: var(--s2);
     }
-    .prompt-line .sym { color: var(--green); }
-    .prompt-line .cmd { color: var(--accent); }
+    .prompt .sym { color: var(--accent); }
 
-    .page-head h1 {
-      font-size: clamp(1.7rem, 4.5vw, 2.2rem);
-      font-weight: 600;
-      line-height: 1.2;
-      letter-spacing: -0.02em;
-      color: var(--text-strong);
-      margin-bottom: var(--s2);
+    h1 {
+      font-size: clamp(1.5rem, 4vw, 1.9rem);
+      font-weight: 600; line-height: 1.2; letter-spacing: -0.015em;
+      color: var(--text-strong); margin-bottom: var(--s3);
     }
 
-    .page-head p { color: var(--text-muted); max-width: 62ch; }
+    p { max-width: var(--measure); }
 
-    .notice {
-      display: flex;
-      gap: var(--s3);
-      align-items: flex-start;
-      padding: var(--s4);
-      margin: var(--s5) 0 0;
-      background: var(--amber-soft);
-      border: 1px solid rgba(230, 166, 68, 0.25);
-      border-radius: var(--radius);
-      font-size: 0.9rem;
-    }
-    .notice svg { width: 18px; height: 18px; flex: none; color: var(--amber); margin-top: 2px; }
+    .intro { color: var(--text-muted); margin-bottom: var(--s6); }
 
-    .inline-link {
-      color: var(--accent);
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
+    a.ilink {
+      color: var(--accent); text-decoration: none;
+      border-bottom: 1px solid rgba(54, 211, 196, 0.35);
       transition: border-color var(--ease);
     }
-    .inline-link:hover { border-bottom-color: var(--accent); }
+    a.ilink:hover { border-bottom-color: var(--accent); }
 
-    /* ───────── FILTERS ───────── */
-    .filter-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--s2);
-      padding: var(--s6) 0 var(--s4);
-    }
-
-    .filter-tag {
-      min-height: 40px;
-      padding: 0 var(--s4);
-      font-family: var(--mono);
-      font-size: 0.8rem;
-      background: none;
-      border: 1px solid var(--border-strong);
-      border-radius: var(--radius);
-      color: var(--text-muted);
-      cursor: pointer;
-      transition: color var(--ease), border-color var(--ease), background var(--ease);
-    }
-    .filter-tag:hover { color: var(--text-strong); background: var(--surface); }
-    .filter-tag[aria-pressed="true"] {
-      color: var(--accent);
-      border-color: var(--accent);
-      background: var(--accent-soft);
-    }
-
-    /* ───────── POSTS ───────── */
-    .post-list { padding-bottom: var(--s8); }
-
-    .post-item {
-      display: block;
-      padding: var(--s5);
-      margin-bottom: var(--s3);
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      text-decoration: none;
-      transition: background var(--ease), border-color var(--ease);
-    }
-    a.post-item:hover { background: var(--surface-2); border-color: var(--border-strong); }
-
-    .post-meta {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: var(--s2);
-      font-family: var(--mono);
-      font-size: 0.78rem;
-      color: var(--text-muted);
+    h2 {
+      font-family: var(--mono); font-size: 0.8rem; font-weight: 500;
+      color: var(--text-muted); letter-spacing: 0.06em; text-transform: uppercase;
+      padding-bottom: var(--s3); border-bottom: 1px solid var(--border-strong);
       margin-bottom: var(--s2);
     }
 
-    .post-tag {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      padding: 0.1rem 0.5rem;
-      border: 1px solid var(--border);
-      border-radius: 3px;
-    }
-    .post-tag.dfir { color: var(--amber); border-color: rgba(230,166,68,0.3); background: var(--amber-soft); }
-    .post-tag.cti { color: var(--accent); border-color: rgba(54,211,196,0.3); background: var(--accent-soft); }
-    .post-tag.detection { color: var(--green); border-color: rgba(111,207,124,0.3); background: var(--green-soft); }
-    .post-tag.draft { color: var(--text-muted); background: var(--surface-2); }
+    .draft { padding: var(--s4) 0; border-bottom: 1px solid var(--border); }
+    .draft:last-child { border-bottom: none; }
 
-    .post-item h2 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      line-height: 1.35;
-      color: var(--text-strong);
-      margin-bottom: var(--s2);
+    .draft h3 {
+      font-size: 1rem; font-weight: 500; color: var(--text-strong);
+      line-height: 1.4; margin-bottom: var(--s1);
     }
 
-    .post-item p { font-size: 0.92rem; color: var(--text-muted); max-width: 68ch; }
+    .draft p { font-size: 0.9rem; color: var(--text-muted); }
 
-    .empty-state {
-      padding: var(--s6);
-      text-align: center;
-      font-family: var(--mono);
-      font-size: 0.88rem;
+    .draft-topic {
+      font-family: var(--mono); font-size: 0.74rem;
+      color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;
+      margin-bottom: var(--s1);
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: var(--s5) 0 var(--s6);
+      font-family: var(--mono); font-size: 0.78rem;
       color: var(--text-muted);
-      border: 1px dashed var(--border-strong);
-      border-radius: var(--radius);
     }
-    .empty-state[hidden] { display: none; }
-
-    /* ───────── FOOTER ───────── */
-    footer { border-top: 1px solid var(--border); padding: var(--s6) 0; }
 
     .footer-inner {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: var(--s3);
-      font-family: var(--mono);
-      font-size: 0.8rem;
-      color: var(--text-muted);
+      display: flex; flex-wrap: wrap; justify-content: space-between;
+      align-items: center; gap: var(--s2);
     }
 
-    .footer-links { display: flex; flex-wrap: wrap; gap: var(--s1); }
+    .footer-inner nav { display: flex; flex-wrap: wrap; gap: 0 var(--s4); }
 
-    .footer-links a {
-      display: inline-flex;
-      align-items: center;
-      min-height: 44px;
-      padding: 0 var(--s3);
-      color: var(--text-muted);
-      text-decoration: none;
-      border-radius: var(--radius);
-      transition: color var(--ease), background var(--ease);
+    .footer-inner a {
+      display: inline-flex; align-items: center; min-height: 44px;
+      color: var(--text-muted); text-decoration: none;
+      transition: color var(--ease);
     }
-    .footer-links a:hover { color: var(--accent); background: var(--surface); }
+    .footer-inner a:hover { color: var(--accent); }
 
     @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
-      }
+      *, *::before, *::after { transition-duration: 0.01ms !important; }
     }
 
     @media (max-width: 640px) {
+      :root { --s7: 2.25rem; }
       .wrap { padding: 0 var(--s4); }
-      :root { --s8: 3rem; --s7: 2rem; }
-      .nav-logo { font-size: 0.82rem; }
-      .post-item { padding: var(--s4); }
-      .footer-inner { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
@@ -363,109 +222,61 @@
 
 <nav class="site-nav" aria-label="Primary">
   <div class="wrap nav-inner">
-    <a href="/" class="nav-logo"><span class="bracket">[</span> faisholhakim <span class="bracket">|</span> elend <span class="bracket">]</span></a>
+    <a href="/" class="nav-name">faisholhakim</a>
     <div class="nav-links">
-      <a href="/#focus">/ focus</a>
-      <a href="/#experience">/ experience</a>
-      <a href="/#cases">/ cases</a>
-      <a href="/#projects">/ projects</a>
-      <a href="/#arsenal">/ arsenal</a>
-      <a href="/blog" aria-current="page">/ writing</a>
+      <a href="/#work">work</a>
+      <a href="/#experience">experience</a>
+      <a href="/#cases">cases</a>
+      <a href="/#projects">projects</a>
+      <a href="/#tools">tools</a>
+      <a href="/blog" aria-current="page">writing</a>
     </div>
   </div>
 </nav>
 
 <main id="main">
   <div class="wrap">
+    <p class="prompt"><span class="sym">$</span> ls ./writing</p>
+    <h1>Writing</h1>
+    <p class="intro">
+      Notes on forensics, incident response and the tooling around them. Older posts are on
+      <a class="ilink" href="https://medium.com/@faisholhaka" target="_blank" rel="noopener">Medium</a>;
+      nothing has been migrated here yet.
+    </p>
 
-    <div class="page-head">
-      <p class="prompt-line"><span class="sym">$</span> <span class="cmd">ls ./writing</span></p>
-      <h1>Writing</h1>
-      <p>Notes on digital forensics, incident response, threat intelligence and the automation that makes all three less painful.</p>
+    <h2>Drafts</h2>
 
-      <div class="notice">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-        <p>These posts are still being written. Published work lives on <a class="inline-link" href="https://medium.com/@faisholhaka" target="_blank" rel="noopener">Medium</a> until it is migrated here.</p>
-      </div>
+    <div class="draft">
+      <p class="draft-topic">DFIR</p>
+      <h3>Automating DFIR triage with KAPE and timeline analysis</h3>
+      <p>Collection through artifact parsing to a single timeline — what it catches and what it still misses.</p>
     </div>
 
-    <div class="filter-row" role="group" aria-label="Filter posts by topic">
-      <button class="filter-tag" type="button" data-filter="all" aria-pressed="true">all</button>
-      <button class="filter-tag" type="button" data-filter="dfir" aria-pressed="false">dfir</button>
-      <button class="filter-tag" type="button" data-filter="cti" aria-pressed="false">cti</button>
-      <button class="filter-tag" type="button" data-filter="detection" aria-pressed="false">detection</button>
+    <div class="draft">
+      <p class="draft-topic">DFIR</p>
+      <h3>A Volatility auto-parser for Linux memory images</h3>
+      <p>Kernel detection, ISF symbol fetching, plugin orchestration.</p>
     </div>
 
-    <div class="post-list" id="post-list">
-
-      <article class="post-item" data-tags="dfir">
-        <div class="post-meta">
-          <span class="post-tag dfir">dfir</span>
-          <span class="post-tag draft">draft</span>
-        </div>
-        <h2>Automating DFIR Triage with KAPE and Timeline Analysis</h2>
-        <p>Building a pipeline from triage collection through artifact parsing to an interactive timeline — and what it misses.</p>
-      </article>
-
-      <article class="post-item" data-tags="dfir">
-        <div class="post-meta">
-          <span class="post-tag dfir">dfir</span>
-          <span class="post-tag draft">draft</span>
-        </div>
-        <h2>Volatility Auto-Parser for Linux Memory Images</h2>
-        <p>Kernel detection, ISF symbol fetching and plugin orchestration: automating the painful parts of Linux memory forensics.</p>
-      </article>
-
-      <article class="post-item" data-tags="cti detection">
-        <div class="post-meta">
-          <span class="post-tag cti">cti</span>
-          <span class="post-tag detection">detection</span>
-          <span class="post-tag draft">draft</span>
-        </div>
-        <h2>Building a CTI Enrichment Pipeline: From Reports to Detection</h2>
-        <p>End-to-end IoC extraction, enrichment and detection deployment across multiple tenants.</p>
-      </article>
-
-      <p class="empty-state" id="empty-state" hidden>No posts under this topic yet.</p>
-
+    <div class="draft">
+      <p class="draft-topic">Intel · Detection</p>
+      <h3>From intel report to deployed detection</h3>
+      <p>IoC extraction, enrichment, and pushing detections out across tenants.</p>
     </div>
-
   </div>
 </main>
 
 <footer>
   <div class="wrap footer-inner">
     <p>faisholhakim © 2026</p>
-    <div class="footer-links">
+    <nav aria-label="Elsewhere">
       <a href="mailto:faisholhakim15@gmail.com">email</a>
       <a href="https://www.linkedin.com/in/faisholhaka" target="_blank" rel="noopener">linkedin</a>
       <a href="https://github.com/aaishoo" target="_blank" rel="noopener">github</a>
       <a href="https://medium.com/@faisholhaka" target="_blank" rel="noopener">medium</a>
-    </div>
+    </nav>
   </div>
 </footer>
-
-<script>
-  var buttons = document.querySelectorAll('.filter-tag');
-  var posts = document.querySelectorAll('.post-item');
-  var empty = document.getElementById('empty-state');
-
-  buttons.forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var filter = btn.dataset.filter;
-      buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b === btn)); });
-
-      var shown = 0;
-      posts.forEach(function (post) {
-        var tags = (post.dataset.tags || '').split(' ');
-        var match = filter === 'all' || tags.indexOf(filter) !== -1;
-        post.hidden = !match;
-        if (match) shown++;
-      });
-      empty.hidden = shown > 0;
-    });
-  });
-</script>
 
 </body>
 </html>
