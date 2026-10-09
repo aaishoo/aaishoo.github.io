@@ -146,16 +146,37 @@
     .nav-links a[aria-current] { color: var(--accent); }
 
     /* ── sections ── */
-    main > section { padding: var(--s7) 0; }
-    main > section + section { border-top: 1px solid var(--border); }
+    main > section { padding: var(--s7) 0; border-top: 1px solid var(--border); }
+    main > section:nth-of-type(2n) { background: var(--surface); }
+    main > section:first-of-type { border-top: none; }
 
-    section > h2 {
+    .sec-head {
+      display: flex;
+      align-items: baseline;
+      gap: var(--s3);
+      padding-bottom: var(--s3);
+      margin-bottom: var(--s5);
+      border-bottom: 1px solid var(--border-strong);
+    }
+
+    .sec-num {
       font-family: var(--mono);
-      font-size: 0.8rem;
-      font-weight: 500;
+      font-size: 0.76rem;
+      color: var(--accent);
+      flex: none;
+    }
+
+    .sec-head h2 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text-strong);
+    }
+
+    .sec-note {
       color: var(--text-muted);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
+      font-size: 0.92rem;
+      margin-top: calc(var(--s5) * -1 + var(--s2));
       margin-bottom: var(--s5);
     }
 
@@ -336,6 +357,26 @@
     }
     a.ilink:hover { border-bottom-color: var(--accent); }
 
+    /* ── contact panel ── */
+    .contact {
+      border: 1px solid var(--border-strong);
+      padding: var(--s5);
+    }
+
+    .contact h2 {
+      font-size: 1.15rem; font-weight: 600; color: var(--text-strong);
+      letter-spacing: -0.01em; margin-bottom: var(--s3);
+    }
+
+    .contact p { margin-bottom: var(--s4); }
+    .contact p:last-child { margin-bottom: 0; }
+
+    .contact-lines {
+      font-family: var(--mono); font-size: 0.85rem;
+      display: flex; flex-direction: column; gap: var(--s1);
+    }
+    .contact-lines span { color: var(--text-muted); }
+
     /* ── footer ── */
     footer {
       border-top: 1px solid var(--border);
@@ -384,8 +425,8 @@
       <a href="#work">work</a>
       <a href="#experience">experience</a>
       <a href="#cases">cases</a>
-      <a href="#projects">projects</a>
       <a href="#tools">tools</a>
+      <a href="#competitions">competitions</a>
       <a href="/blog">writing</a>
     </div>
   </div>
@@ -394,7 +435,8 @@
 <main id="main">
 
   <!-- masthead -->
-  <section class="masthead wrap" id="top">
+  <section class="masthead" id="top">
+    <div class="wrap">
     <div class="masthead-top">
       <img class="avatar" src="avatar.jpg" width="72" height="72" alt="Muhamad Faishol Hakim" fetchpriority="high">
       <div>
@@ -420,14 +462,16 @@
       <a href="https://www.linkedin.com/in/faisholhaka" target="_blank" rel="noopener">linkedin</a>
       <a href="https://github.com/aaishoo" target="_blank" rel="noopener">github</a>
       <a href="https://medium.com/@faisholhaka" target="_blank" rel="noopener">medium</a>
+      </div>
     </div>
   </section>
 
   <!-- work -->
-  <section class="wrap" id="work">
-    <h2>What I work on</h2>
+  <section id="work">
+    <div class="wrap">
+      <header class="sec-head"><span class="sec-num">01</span><h2>What I work on</h2></header>
 
-    <dl>
+<dl>
       <div class="def">
         <dt>Forensics and incident response</dt>
         <dd>Disk, memory and cloud instance acquisition. Chain of custody, timeline reconstruction, root cause. Reports for both the engineers remediating and the executives signing off.</dd>
@@ -436,18 +480,16 @@
         <dt>Threat intelligence and detection</dt>
         <dd>IoC extraction and enrichment, ATT&amp;CK mapping, and detection content built and tested on Splunk and Elastic.</dd>
       </div>
-      <div class="def">
-        <dt>Tooling</dt>
-        <dd>Python for triage collection, artifact parsing, memory image automation and multi-tenant intel sweeps.</dd>
-      </div>
     </dl>
+    </div>
   </section>
 
   <!-- experience -->
-  <section class="wrap" id="experience">
-    <h2>Experience</h2>
+  <section id="experience">
+    <div class="wrap">
+      <header class="sec-head"><span class="sec-num">02</span><h2>Experience</h2></header>
 
-    <div class="job">
+<div class="job">
       <p class="job-when">Jan 2025 — present</p>
       <div>
         <h3>Technical Consultant Associate</h3>
@@ -496,12 +538,15 @@
         </ul>
       </div>
     </div>
+    </div>
   </section>
 
   <!-- cases -->
-  <section class="wrap" id="cases">
-    <h2>Cases</h2>
-    <div class="table-scroll">
+  <section id="cases">
+    <div class="wrap">
+      <header class="sec-head"><span class="sec-num">03</span><h2>Cases</h2></header>
+
+<div class="table-scroll">
       <table>
         <caption>Client names and identifying detail withheld. Mostly state-owned enterprises.</caption>
         <thead>
@@ -517,56 +562,31 @@
         </tbody>
       </table>
     </div>
-  </section>
-
-  <!-- projects -->
-  <section class="wrap" id="projects">
-    <h2>Projects</h2>
-
-    <div class="proj">
-      <div class="proj-head">
-        <h3>dfir-autopilot</h3>
-        <span class="proj-state">unreleased</span>
-      </div>
-      <p>Triage pipeline: KAPE collection, artifact parsing, Hayabusa and DeepBlueCLI scanning, into one timeline.</p>
-      <p class="proj-stack">Python · KAPE · Hayabusa · DeepBlueCLI</p>
-    </div>
-
-    <div class="proj">
-      <div class="proj-head">
-        <h3>vol-autoparser</h3>
-        <span class="proj-state">unreleased</span>
-      </div>
-      <p>Volatility 3 wrapper for Linux memory images — detects the kernel, fetches ISF symbols, runs the relevant plugins and summarises what came back.</p>
-      <p class="proj-stack">Python · Volatility 3</p>
-    </div>
-
-    <div class="proj">
-      <div class="proj-head">
-        <h3>tmv1-automate</h3>
-        <span class="proj-state">unreleased</span>
-      </div>
-      <p>Bulk IoC upload and parallel multi-tenant sweeps against the Trend Micro Vision One API.</p>
-      <p class="proj-stack">Python · Vision One API</p>
     </div>
   </section>
+
 
   <!-- tools -->
-  <section class="wrap" id="tools">
-    <h2>Tools</h2>
-    <dl>
+  <section id="tools">
+    <div class="wrap">
+      <header class="sec-head"><span class="sec-num">04</span><h2>Tools</h2></header>
+
+<dl>
       <div class="tool-row"><dt>Forensics</dt><dd>KAPE, Velociraptor, Volatility, FTK, Autopsy, EZTools, Hayabusa</dd></div>
       <div class="tool-row"><dt>SIEM &amp; EDR</dt><dd>Splunk, Elastic, CrowdStrike, Wazuh</dd></div>
       <div class="tool-row"><dt>Intelligence</dt><dd>Recorded Future, MISP, OpenCTI, Trend Vision One</dd></div>
       <div class="tool-row"><dt>Validation</dt><dd>Tenable, Atomic Red Team, MITRE ATT&amp;CK</dd></div>
       <div class="tool-row"><dt>Engineering</dt><dd>Python, Bash, Linux, Windows, Git</dd></div>
     </dl>
+    </div>
   </section>
 
   <!-- certifications -->
-  <section class="wrap" id="certifications">
-    <h2>Certifications</h2>
-    <div class="table-scroll">
+  <section id="certifications">
+    <div class="wrap">
+      <header class="sec-head"><span class="sec-num">05</span><h2>Certifications</h2></header>
+
+<div class="table-scroll">
       <table>
         <tbody>
           <tr><td>Computer Hacking Forensic Investigator (CHFI)</td><td class="scope">EC-Council</td></tr>
@@ -577,12 +597,15 @@
         </tbody>
       </table>
     </div>
+    </div>
   </section>
 
   <!-- competitions -->
-  <section class="wrap" id="competitions">
-    <h2>Competitions</h2>
-    <div class="table-scroll">
+  <section id="competitions">
+    <div class="wrap">
+      <header class="sec-head"><span class="sec-num">06</span><h2>Competitions</h2></header>
+
+<div class="table-scroll">
       <table>
         <tbody>
           <tr><td>KC7 CTF</td><td class="scope">KC7 Foundation</td><td class="rank placed">2nd</td></tr>
@@ -595,12 +618,50 @@
         </tbody>
       </table>
     </div>
+    </div>
+  </section>
+
+  <!-- projects -->
+  <section id="projects">
+    <div class="wrap">
+      <header class="sec-head"><span class="sec-num">07</span><h2>Side projects</h2></header>
+      <p class="sec-note">Things I am building for my own workflow. Early stage — closer to ideas than finished tools.</p>
+
+<div class="proj">
+      <div class="proj-head">
+        <h3>dfir-autopilot</h3>
+        <span class="proj-state">early</span>
+      </div>
+      <p>Triage pipeline: KAPE collection, artifact parsing, Hayabusa and DeepBlueCLI scanning, into one timeline.</p>
+      <p class="proj-stack">Python · KAPE · Hayabusa · DeepBlueCLI</p>
+    </div>
+
+    <div class="proj">
+      <div class="proj-head">
+        <h3>vol-autoparser</h3>
+        <span class="proj-state">early</span>
+      </div>
+      <p>Volatility 3 wrapper for Linux memory images — detects the kernel, fetches ISF symbols, runs the relevant plugins and summarises what came back.</p>
+      <p class="proj-stack">Python · Volatility 3</p>
+    </div>
+
+    <div class="proj">
+      <div class="proj-head">
+        <h3>tmv1-automate</h3>
+        <span class="proj-state">early</span>
+      </div>
+      <p>Bulk IoC upload and parallel multi-tenant sweeps against the Trend Micro Vision One API.</p>
+      <p class="proj-stack">Python · Vision One API</p>
+    </div>
+    </div>
   </section>
 
   <!-- writing -->
-  <section class="wrap" id="writing">
-    <h2>Writing</h2>
-    <p class="lead">
+  <section id="writing">
+    <div class="wrap">
+      <header class="sec-head"><span class="sec-num">08</span><h2>Writing</h2></header>
+
+<p class="lead">
       Older posts are on <a class="ilink" href="https://medium.com/@faisholhaka" target="_blank" rel="noopener">Medium</a>.
       These three are drafted and not published yet.
     </p>
@@ -616,16 +677,22 @@
       <h3>From intel report to deployed detection</h3>
       <p>IoC extraction, enrichment, and pushing it out across tenants.</p>
     </div>
+    </div>
   </section>
 
   <!-- contact -->
-  <section class="wrap" id="contact">
-    <h2>Contact</h2>
-    <p class="lead">
-      Incident, forensics capability, or blue team tooling —
-      <a class="ilink" href="mailto:faisholhakim15@gmail.com">faisholhakim15@gmail.com</a>
-      or <a class="ilink" href="https://www.linkedin.com/in/faisholhaka" target="_blank" rel="noopener">LinkedIn</a>.
-    </p>
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact">
+        <h2>Contact</h2>
+        <p>Incident response, forensics, or anything in this field — email is best, LinkedIn works too.</p>
+        <div class="contact-lines">
+          <a class="ilink" href="mailto:faisholhakim15@gmail.com">faisholhakim15@gmail.com</a>
+          <a class="ilink" href="https://www.linkedin.com/in/faisholhaka" target="_blank" rel="noopener">linkedin.com/in/faisholhaka</a>
+          <span>Indonesia · GMT+7</span>
+        </div>
+      </div>
+    </div>
   </section>
 
 </main>
